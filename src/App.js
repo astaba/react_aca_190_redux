@@ -1,9 +1,9 @@
 import Counter from './components/Counter';
 
 
-function App(props) {
+function App() {
   return (
-    <Counter {...props} />
+    <Counter />
   );
 }
 

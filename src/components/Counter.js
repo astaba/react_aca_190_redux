@@ -1,32 +1,32 @@
-import { useSelector, useDispatch } from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import classes from "./Counter.module.css";
-import { actIncrement, actDecrement } from "../store/store";
+import { actDecrement, actIncrement } from "../store/store";
 
-const Counter = () => {
-  const counter = useSelector((state) => state.counter);
+export class Counter extends Component {
+  toggleCounterHandler = () => {};
 
-  const dispatch = useDispatch();
-  const handleIncrement = () => {
-    dispatch(actIncrement(1));
-  };
-  const handleDecrement = () => {
-    dispatch(actDecrement(1));
-  };
+  render() {
+    return (
+      <main className={classes.counter}>
+        <h1>Redux Counter</h1>
+        <div className={classes.value}>-- {this.props.counter} --</div>
+        <div>
+          <button onClick={() => this.props.handleDecrement(1)}>Decrement</button>
+          <button onClick={() => this.props.handleIncrement(1)}>Increment</button>
+        </div>
+        <button onClick={this.toggleCounterHandler}>Toggle Counter</button>
+      </main>
+    );
+  }
+}
 
-  const toggleCounterHandler = () => {};
-
-  return (
-    <main className={classes.counter}>
-      <h1>Redux Counter</h1>
-      <div className={classes.value}>-- {counter} --</div>
-      <div>
-        <button onClick={handleDecrement}>Decrement</button>
-        <button onClick={handleIncrement}>Increment</button>
-      </div>
-      <button onClick={toggleCounterHandler}>Toggle Counter</button>
-    </main>
-  );
-};
-
-export default Counter;
+const mapStateWithProps = (state) => ({
+  counter: state.counter,
+});
+const mapDispatchWithProps = (dispatch) => ({
+  handleDecrement: (num) => dispatch(actDecrement(num)),
+  handleIncrement: (num) => dispatch(actIncrement(num)),
+});
+export default connect(mapStateWithProps, mapDispatchWithProps)(Counter);

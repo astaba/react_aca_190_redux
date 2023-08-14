@@ -4,8 +4,8 @@ import classes from "./Counter.module.css";
 import { counterSliceActions } from "../slices/counter/counterSlice";
 
 const Counter = () => {
-  const counter = useSelector((state) => state.counter);
-  const isShown = useSelector((state) => state.isShown);
+  const counter = useSelector((state) => state.counterState.counter);
+  const isShown = useSelector((state) => state.counterState.isShown);
 
   const dispatch = useDispatch();
   const handleIncrement = () => {
